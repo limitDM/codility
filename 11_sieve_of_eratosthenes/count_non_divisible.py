@@ -1,32 +1,25 @@
+def elt_counter(a):
+  n = len(a)
+  ret = [0] * (2 * n + 1)
+  for i in a:
+    ret[i] += 1
+  return ret
+
 def solution(a):
   n = len(a)
-  appearance = [0] * (2 * n + 1)
-  for i in a:
-    appearance[i] += 1
+  elt_cnts = elt_counter(a)
+  non_divs = [n] * (2 * n + 1)
+  ret = []
 
-  distinct_elts = set(a)
+  for i in range(2 * n + 1):
+    if elt_cnts[i] != 0:
+      j = 1
+      while (i * j < 2 * n + 1):
+        if elt_cnts[i * j] != 0:
+          non_divs[i * j] -= elt_cnts[i]
+        j += 1
 
-  non_divisors = [0] * (2 * n + 1)
-
-  non_divisors[1] = n - appearance[1]
-
-  for i in distinct_elts:
-    if i == 1:
-      continue
-    div_cnt = n - appearance[1] - appearance[i]
-    j = 2
-    while j * j < i:
-      if i % j == 0:
-        div_cnt -= appearance[j] + appearance[i / j]
-      j += 1
-    if j * j == i:
-      div_cnt -= appearance[j]
-    non_divisors[i] = div_cnt
-
-  ret = [0] * n
-
-  i = 0
-  for i in xrange(n):
-    ret[i] = non_divisors[a[i]]
+  for i in range(n):
+    ret += [non_divs[a[i]]]
 
   return ret
