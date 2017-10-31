@@ -22,27 +22,25 @@ int remove_factor(int a, int b) {
   return a;
 }
 
+bool check(int a, int b) {
+  int g = gcd(a, b);
+  a /= g;
+  b /= g;
+  for (int i = 2; (a != 1 || b != 1) && g != 1 && i <= g; i++) {
+    if (g % i == 0) {
+      g = remove_factor(g, i);
+      a = remove_factor(a, i);
+      b = remove_factor(b, i);
+    }
+  }
+  return (a == 1 && b == 1);
+}
 
 int solution(vector<int> &a, vector<int> &b) {
   int ret = 0;
   int z = a.size();
   for (int i = 0; i < z; i++) {
-    int l = a[i];
-    int r = b[i];
-    if (l == r){
-      ret++;
-      continue;
-    }
-    int g = gcd(l, r);
-    for (int j = 2; g != 1 || j * j <= g; j++) {
-      if (g % j == 0){
-        g = remove_factor(g, j);
-        l = remove_factor(l, j);
-        r = remove_factor(r, j);
-      }
-    }
-    if (l == 1 && r == 1)
-      ret++;
+    ret += check(a[i], b[i]);
   }
   return ret;
 }

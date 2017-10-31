@@ -12,23 +12,22 @@ def remove_factor(a, b):
     a /= b
   return a
 
+def check(a, b):
+  g = gcd(a, b)
+  a /= g
+  b /= g
+  i = 2
+  while (a != 1 or b != 1) and g != 1 and i <= g:
+    if g % i == 0:
+      g = remove_factor(g, i)
+      a = remove_factor(a, i)
+      b = remove_factor(b, i)
+    i += 1
+  return (a == 1 and b == 1)
+
 def solution(a, b):
   ret = 0
   z = len(a)
   for i in range(z):
-    l = a[i]
-    r = b[i]
-    if l == r:
-      ret += 1
-      continue
-    g = gcd(l, r)
-    j = 2
-    while g != 1 or j * j <= g:
-      if g % j == 0:
-        g = remove_factor(g, j)
-        l = remove_factor(l, j)
-        r = remove_factor(r, j)
-      j += 1
-    if l == 1 and r == 1:
-      ret += 1
+    ret += check(a[i], b[i])
   return ret
