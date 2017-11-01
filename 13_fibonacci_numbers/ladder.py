@@ -1,14 +1,16 @@
-def solution(a, b):
+def fib_check(l):
   x, y = 1, 1
-  l = len(a)
-  fibs = [0] * (l + 1)
-  for i in xrange(1, l + 1):
-    fibs[i] = x
-    x, y = x+y % 2 ** 30, x % 2 ** 30
-
-  ret = [0] * l
+  ret = [1]
   for i in xrange(l):
-    ret[i] = fibs[a[i]] % 2 ** b[i]
+    ret += [x]
+    x, y = (x + y) % 2 ** 30, x
+  return ret
+
+def solution(a, b):
+  l = len(a)
+  fibs = fib_check(l)
+  ret = []
+  for i in xrange(l):
+    ret += [fibs[a[i]] % 2 ** b[i]]
 
   return ret
-  
