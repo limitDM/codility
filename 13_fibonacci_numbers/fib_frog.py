@@ -1,33 +1,28 @@
+def fib_under(n):
+  a = 1
+  b = 1
+  rt = []
+  while a <= n:
+    rt.append(a)
+    a, b = a + b, a
+  return rt
+
 def solution(a):
+  a.append(1)
   n = len(a)
-
-  fibs = [0] * (2 * n + 2)
-
-  f1, f2 = 1, 1
-  i = 0
-  while f1 < n+2:
-    fibs[i] = f1
-    f1, f2 = f1+f2, f1
-    i += 1
-  fibs[i] = f1
-
-  steps = [n+2] * (n + 1)
-
-  for i in xrange(n+1):
-    min_step = n+2
-    f = fibs[0]
-    j = 0
-    while f < i+1:
-      if a[i-f]:
-        min_step = min(min_step, steps[i-f] + 1)
-      j += 1
-      print j
-      f = fibs[j]
-    if i-f == -1:
-      steps[i] = 1
-    else:
-      steps[i] = min_step
-  if steps[n] == n+2:
+  fibs = fib_under(n)
+  steps = [n + 2] * n
+  for i in range(n):
+    if a[i] == 0:
+      continue
+    for j in fibs:
+      if i - j < -1:
+        break
+      elif i - j == -1:
+        steps[i] = 1
+      elif steps[i - j] != n + 2:
+        steps[i] = min(steps[i], steps[i - j] + 1)
+  if steps[-1] == n + 2:
     return -1
   else:
-    return steps[n]
+    return steps[-1]
