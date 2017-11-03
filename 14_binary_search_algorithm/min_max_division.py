@@ -1,32 +1,24 @@
-def check(A, b, K):
-  this = b
-  cnt = 1
-  for i in A:
-    if i > b:
-      return K + 1
-    elif i <= this:
-      this -= i
-    else:
-      this = b-i
-      cnt += 1
-  return cnt
+def check(val, k, a):
+  this = 0;
+  for i in a:
+    if i > val:
+      return 0
+    this += i
+    if (this > val):
+      k -= 1
+      this = i
+  return k > 0
 
-def solution(K, M, A):
-  n = len(A)
-
+def solution(k, m, a):
+  n = len(a)
   beg = 0
-  
-  end = n / K
-  if n % K != 0:
-    end += 1
-  end *= M
-
-  ret = 0
+  end = m * n
+  rt = -1
   while beg <= end:
     mid = (beg + end) / 2
-    if check(A, mid, K) <= K:
-      ret = mid
+    if check(mid, k, a):
       end = mid - 1
+      rt = mid;
     else:
       beg = mid + 1
-  return ret
+  return rt
