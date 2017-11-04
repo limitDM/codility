@@ -1,28 +1,16 @@
-MAX = 1000000000
+MAX = int(1e9)
 
 def solution(m, a):
   n = len(a)
-  chklst = [0] * (m + 1)
-
-  chklst[a[0]] = 1
-  p = 0
-  q = 0
-  cnt = 0
-  distinct = True
-  while p < n:
-    while distinct:
-      cnt += q - p + 1
-      if cnt > MAX:
-        return MAX
-      q += 1
-      if q == n:
-        return cnt
-      chklst[a[q]] += 1
-      if chklst[a[q]] == 2:
-        distinct = False
-    while not distinct:
-      if chklst[a[p]] == 2:
-        distinct = True
-      chklst[a[p]] -= 1
-      p += 1
-  return cnt
+  cnts = [0] * (m + 1)
+  rt = 0
+  back = 0
+  for front in range(n):
+    cnts[a[front]] += 1
+    while cnts[a[front]] == 2:
+      cnts[a[back]] -= 1
+      back += 1
+    rt += front - back + 1
+    if rt > MAX:
+      return MAX
+  return rt
