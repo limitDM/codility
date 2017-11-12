@@ -11,12 +11,12 @@ int solution(vector<int> &a) {
   sort(a.begin(), a.end());
   while (beg < end) {
     rt = min(rt, abs(a[beg] + a[end]));
-    if (abs(a[beg]) < abs(a[end])) {
-      end--;
-    } else if (abs(a[beg]) > abs(a[end])) {
-      beg++;
-    } else {
+    if (-a[beg] == a[end]) {
       return 0;
+    } else if (abs(a[beg]) < abs(a[end])) {
+      end--;
+    } else {
+      beg++;
     }
   }
   return min(rt, abs(a[beg] + a[end]));

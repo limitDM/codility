@@ -6,10 +6,10 @@ def solution(a):
   a.sort()
   while (beg < end):
     rt = min(rt, abs(a[beg] + a[end]))
-    if (abs(a[beg]) < abs(a[end])):
-      end -= 1
-    elif (abs(a[beg]) > abs(a[end])):
-      beg += 1
-    else:
+    if -a[beg] == a[end]:
       return 0
+    elif abs(a[beg]) < abs(a[end]):
+      end -= 1
+    else:
+      beg += 1
   return min(rt, abs(a[beg] + a[end]))
