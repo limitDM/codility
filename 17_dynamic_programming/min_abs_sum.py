@@ -3,15 +3,14 @@ def solution(a):
     if n == 0:
         return 0
     a = map(abs, a)
-    m = max(a)
-    cnts = [0] * (m + 1)
+    cnts = [0] * (101)
     for i in a:
         cnts[i] += 1
     s = sum(a)
     ub = s // 2
     dm = [-1] * (ub + 1)
     dm[0] = 0
-    for i in range(1, m+1):
+    for i in range(1, 101):
         if cnts[i] < 1:
             continue
         for j in range(ub + 1):
