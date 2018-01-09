@@ -7,7 +7,7 @@ def validity(word):
     if ord('a') <= ind <= ord('z') or\
        ord('A') <= ind <= ord('Z'):
       letters += 1
-    if ord('0') <= ind <= ord('9'):
+    elif ord('0') <= ind <= ord('9'):
       digits += 1
   return (letters % 2 == 0 and\
           digits % 2 == 1 and\
