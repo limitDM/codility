@@ -1,3 +1,3 @@
 # codility
 
-my solutions for lessons on codility.com
+my solutions for lessons on https://app.codility.com/programmers/lessons
